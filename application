@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #drone {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h1>Drone Control Application</h1>
+    <div id="drone"></div>
+    <div>
+        <button onclick="moveDrone('up')">Up</button>
+        <button onclick="moveDrone('down')">Down</button>
+        <button onclick="moveDrone('left')">Left</button>
+        <button onclick="moveDrone('right')">Right</button>
+    </div>
+    <script src="drone.js"></script>
+</body>
+</html>
+
+
+
+
+// Get the drone element
+const drone = document.getElementById('drone');
+
+// Initial drone position
+let dronePosition = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2
+};
+
+// Move drone function
+function moveDrone(direction) {
+    const step = 10; // Movement step in pixels
+
+    switch (direction) {
+        case 'up':
+            dronePosition.y -= step;
+            break;
+        case 'down':
+            dronePosition.y += step;
+            break;
+        case 'left':
+            dronePosition.x -= step;
+            break;
+        case 'right':
+            dronePosition.x += step;
+            break;
+    }
+
+    // Update drone position
+    drone.style.left = `${dronePosition.x}px`;
+    drone.style.top = `${dronePosition.y}px`;
+}
+
+// Center the drone when the window is resized
+window.addEventListener('resize', () => {
+    dronePosition.x = window.innerWidth / 2;
+    dronePosition.y = window.innerHeight / 2;
+    drone.style.left = `${dronePosition.x}px`;
+    drone.style.top = `${dronePosition.y}px`;
+});
